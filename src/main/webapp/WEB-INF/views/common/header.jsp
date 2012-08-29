@@ -15,7 +15,7 @@
 	<li><a href="${homeUrl}">Home</a></li>
 
 <%-- Early Ch 3 --%>
-	<c:url value="/j_spring_security_logout" var="logoutUrl"/>
+	<c:url value="/logout" var="logoutUrl"/>
 	<li><a href="${logoutUrl}">Log Out</a></li>
 
 <%-- Late Ch 3 after logout URL customization
