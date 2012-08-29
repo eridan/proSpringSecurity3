@@ -9,10 +9,7 @@
 </head>
 <body>
 <div id="header">
-<%-- End of Ch 3 --%>
-	<div class="username">
-		Welcome, <strong><sec:authentication property="principal.username"/></strong>
-	</div>
+
 <ul>
 	<c:url value="/" var="homeUrl"/>
 	<li><a href="${homeUrl}">Home</a></li>
