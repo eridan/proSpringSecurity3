@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans:beans xmlns="http://www.springframework.org/schema/security"
+<beans xmlns="http://www.springframework.org/schema/beans"
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-             xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:sec="http://www.springframework.org/schema/security"
              xsi:schemaLocation="
 		http://www.springframework.org/schema/beans 
 		http://www.springframework.org/schema/beans/spring-beans.xsd
@@ -13,19 +13,21 @@
           		<intercept-url pattern="/*" access="ROLE_USER"/>
    	</http>-->
     <!-- Ch 2 Unanimous Based AccessDecisionManager -->
-    <http auto-config="true" access-decision-manager-ref="unanimousBased">
-        <intercept-url pattern="/*" access="ROLE_USER"/>
-    </http>
+    <sec:http auto-config="true" use-expressions="true" access-decision-manager-ref="unanimousBased">
+        <sec:form-login login-page="/login.do" />
+        <sec:intercept-url pattern="/login.do" access="permitAll" />
+        <sec:intercept-url pattern="/*" access="hasRole('ROLE_USER')"/>
+    </sec:http>
     <!-- Ch 2 SpEL
   	<http auto-config="true" use-expressions="true" access-decision-manager-ref="unanimousBased">
          		<intercept-url pattern="/*" access="hasRole('ROLE_USER')"/>
   	</http>
   	 -->
-    <authentication-manager alias="authenticationManager">
-        <authentication-provider>
-            <user-service>
-                <user authorities="ROLE_USER" name="guest" password="guest"/>
-            </user-service>
-        </authentication-provider>
-    </authentication-manager>	
-</beans:beans>
+    <sec:authentication-manager alias="authenticationManager">
+        <sec:authentication-provider>
+            <sec:user-service>
+                <sec:user authorities="ROLE_USER" name="guest" password="guest"/>
+            </sec:user-service>
+        </sec:authentication-provider>
+    </sec:authentication-manager>	
+</beans>
