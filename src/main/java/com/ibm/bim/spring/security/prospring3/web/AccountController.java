@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class AccountController extends BaseController {
 
-//    @Autowired
-//    private IChangePassword changePasswordDao;
+    @Autowired
+    private IChangePassword changePasswordDao;
 
     @RequestMapping("/account/home.do")
     public void accountHome() {
@@ -31,6 +31,8 @@ public class AccountController extends BaseController {
 
     @RequestMapping(value = "/account/changePassword.do", method = RequestMethod.POST)
     public String submitChangePasswordPage(@RequestParam("password") String newPassword) {
+        
+        
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         String username = principal.toString();
@@ -38,8 +40,8 @@ public class AccountController extends BaseController {
             username = ((UserDetails) principal).getUsername();
         }
 
-//        changePasswordDao.changePassword(username, newPassword);
-//        SecurityContextHolder.clearContext();
+        changePasswordDao.changePassword(username, newPassword);
+        SecurityContextHolder.clearContext();
 
         return "redirect:home.do";
     }

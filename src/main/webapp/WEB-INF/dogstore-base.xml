@@ -16,6 +16,11 @@
             </list>
         </property>
     </bean>
+    
+    <bean id="jdbcUserService" class="com.ibm.bim.spring.security.prospring3.jdbc.CustomJdbcDaoImpl">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+    
     <bean class="org.springframework.security.access.vote.RoleVoter" id="roleVoter"/>
     <bean class="org.springframework.security.access.vote.AuthenticatedVoter" id="authenticatedVoter" />
    	
