@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class AccountController extends BaseController {
 
-    @Autowired
-    private IChangePassword changePasswordDao;
+//    @Autowired
+//    private IChangePassword changePasswordDao;
 
     @RequestMapping("/account/home.do")
     public void accountHome() {
@@ -38,8 +38,8 @@ public class AccountController extends BaseController {
             username = ((UserDetails) principal).getUsername();
         }
 
-        changePasswordDao.changePassword(username, newPassword);
-        SecurityContextHolder.clearContext();
+//        changePasswordDao.changePassword(username, newPassword);
+//        SecurityContextHolder.clearContext();
 
         return "redirect:home.do";
     }
