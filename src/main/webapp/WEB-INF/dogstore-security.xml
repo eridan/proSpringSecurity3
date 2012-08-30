@@ -28,8 +28,8 @@
   	</http>
   	 -->
     <sec:authentication-manager alias="authenticationManager">
-        <sec:authentication-provider>
-            <sec:jdbc-user-service data-source-ref="dataSource" />
+        <sec:authentication-provider user-service-ref="jdbcUserService">
+            <sec:password-encoder ref="passwordEncoder" />
         </sec:authentication-provider>           
     </sec:authentication-manager>	
 </beans>
