@@ -32,10 +32,10 @@ public class DatabasePasswordSecurerBean extends JdbcDaoSupport {
     @Autowired
     private PasswordEncoder passwordEncoder;
     // Ch 4 Salt Exercise
-//	@Autowired
-//	private SaltSource saltSource;
-//	@Autowired
-//	private UserDetailsService userDetailsService;
+	@Autowired
+	private SaltSource saltSource;
+	@Autowired
+	private UserDetailsService userDetailsService;
 
     public void secureDatabase() {
         getJdbcTemplate().query("select username, password from users",
@@ -44,7 +44,8 @@ public class DatabasePasswordSecurerBean extends JdbcDaoSupport {
                     public void processRow(ResultSet rs) throws SQLException {
                         String username = rs.getString(1);
                         String password = rs.getString(2);
-                        String encodedPassword = passwordEncoder.encodePassword(password, null);
+                        UserDetails user = userDetailsService.loadUserByUsername(username);
+                        String encodedPassword = passwordEncoder.encodePassword(password, saltSource.getSalt(user));
                         getJdbcTemplate().update(
                                 "update users set password = ?"
                                 + " where username =  ?",

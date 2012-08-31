@@ -29,7 +29,9 @@
   	 -->
     <sec:authentication-manager alias="authenticationManager">
         <sec:authentication-provider user-service-ref="jdbcUserService">
-            <sec:password-encoder ref="passwordEncoder" />
+            <sec:password-encoder ref="passwordEncoder">
+                <sec:salt-source ref="saltSource" />
+            </sec:password-encoder>
         </sec:authentication-provider>           
     </sec:authentication-manager>	
 </beans>
