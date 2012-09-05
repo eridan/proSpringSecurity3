@@ -7,6 +7,18 @@
 		http://www.springframework.org/schema/jdbc  http://www.springframework.org/schema/jdbc/spring-jdbc-3.1.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
 	">
+    
+    <!--Filters-->
+    
+    <bean id="ipFilter" class="com.ibm.bim.spring.security.prospring3.security.IPRoleAuthenticationFilter">
+        <property name="targetRole" value="ROLE_USER" />
+        <property name="allowedIPAddresses">
+            <list>
+                <value>127.0.0.1</value>
+            </list>
+        </property>
+    </bean>
+    
     <!-- Ch 2 Custom AccessDecisionManager -->
     <bean class="org.springframework.security.access.vote.UnanimousBased" id="unanimousBased">
         <property name="decisionVoters">
