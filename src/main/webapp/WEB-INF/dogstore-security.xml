@@ -25,6 +25,8 @@
         <sec:custom-filter ref="ipFilter" before="FILTER_SECURITY_INTERCEPTOR" />
     </sec:http>
     
+    <!--<sec:debug />-->
+    
     <sec:authentication-manager alias="authenticationManager">
         <sec:authentication-provider user-service-ref="jdbcUserService">
             <sec:password-encoder ref="passwordEncoder">
