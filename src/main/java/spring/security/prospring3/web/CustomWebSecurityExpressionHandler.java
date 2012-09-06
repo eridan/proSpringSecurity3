@@ -1,4 +1,4 @@
-package com.ibm.bim.spring.security.prospring3.web;
+package spring.security.prospring3.web;
 
 import org.springframework.expression.EvaluationContext;
 import org.springframework.expression.ExpressionParser;

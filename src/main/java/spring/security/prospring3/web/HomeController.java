@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.ibm.bim.spring.security.prospring3.web;
+package spring.security.prospring3.web;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

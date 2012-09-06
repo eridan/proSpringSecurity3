@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.ibm.bim.spring.security.prospring3.security;
+package spring.security.prospring3.security;
 
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.memory.InMemoryDaoImpl;

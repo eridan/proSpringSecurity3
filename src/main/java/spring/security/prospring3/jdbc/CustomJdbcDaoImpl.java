@@ -2,9 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.ibm.bim.spring.security.prospring3.jdbc;
+package spring.security.prospring3.jdbc;
 
-import com.ibm.bim.spring.security.prospring3.security.IChangePassword;
+import spring.security.prospring3.security.IChangePassword;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.dao.SaltSource;
 import org.springframework.security.authentication.encoding.PasswordEncoder;

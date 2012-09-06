@@ -22,10 +22,10 @@
                 <c:url value="/logout" var="logoutUrl"/>
                 <li><a href="${logoutUrl}">Log Out</a></li>
 
-                <sec:authorize url="/account/home.do">
+                <%--<sec:authorize url="/account/home.do">--%>
                     <c:url value="/account/home.do" var="accountUrl"/>
                     <li><a href="${accountUrl}">My Account</a></li>
-                </sec:authorize>
+                <%--</sec:authorize>--%>
 
                 <c:url value="/wishlist/home.do" var="wishlistUrl"/>
                 <li><a href="${wishlistUrl}">My Wishlist</a></li>

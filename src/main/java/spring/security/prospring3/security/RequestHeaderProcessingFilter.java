@@ -1,4 +1,4 @@
-package com.ibm.bim.spring.security.prospring3.security;
+package spring.security.prospring3.security;
 
 import java.io.IOException;
 

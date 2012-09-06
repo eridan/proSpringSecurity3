@@ -1,6 +1,6 @@
-package com.ibm.bim.spring.security.prospring3.web;
+package spring.security.prospring3.web;
 
-import com.ibm.bim.spring.security.prospring3.security.IChangePassword;
+import spring.security.prospring3.security.IChangePassword;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;

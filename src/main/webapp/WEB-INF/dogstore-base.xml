@@ -10,7 +10,7 @@
     
     <!--Filters-->
     
-    <bean id="ipFilter" class="com.ibm.bim.spring.security.prospring3.security.IPRoleAuthenticationFilter">
+    <bean id="ipFilter" class="spring.security.prospring3.security.IPRoleAuthenticationFilter">
         <property name="targetRole" value="ROLE_USER" />
         <property name="allowedIPAddresses">
             <list>
@@ -19,13 +19,13 @@
         </property>
     </bean>
     
-    <bean id="requestHeaderProcessingFilter" class="com.ibm.bim.spring.security.prospring3.security.RequestHeaderProcessingFilter">
+    <bean id="requestHeaderProcessingFilter" class="spring.security.prospring3.security.RequestHeaderProcessingFilter">
         <property name="authenticationManager" ref="authenticationManager" />
     </bean>
     
     <!--Authentication Providers-->
     
-    <bean id="signedRequestAuthenticationProvider" class="com.ibm.bim.spring.security.prospring3.security.SignedUsernamePasswordAuthenticationProvider">
+    <bean id="signedRequestAuthenticationProvider" class="spring.security.prospring3.security.SignedUsernamePasswordAuthenticationProvider">
         <property name="passwordEncoder" ref="passwordEncoder" />
         <property name="saltSource" ref="saltSource" />
         <property name="userDetailsService" ref="jdbcUserService" />
@@ -41,7 +41,7 @@
         </property>
     </bean>
     
-    <bean id="jdbcUserService" class="com.ibm.bim.spring.security.prospring3.jdbc.CustomJdbcDaoImpl">
+    <bean id="jdbcUserService" class="spring.security.prospring3.jdbc.CustomJdbcDaoImpl">
         <property name="dataSource" ref="dataSource" />
         <property name="enableGroups" value="true" />
         <property name="enableAuthorities" value="false" />
@@ -56,13 +56,13 @@
         <property name="userPropertyToUse" value="username" />
     </bean>
     
-    <bean id="dbPWSecBean" class="com.ibm.bim.spring.security.prospring3.security.DatabasePasswordSecurerBean"
+    <bean id="dbPWSecBean" class="spring.security.prospring3.security.DatabasePasswordSecurerBean"
           init-method="secureDatabase" depends-on="dataSource">
         <property name="dataSource" ref="dataSource" />
     </bean>
    	
     <context:annotation-config />
-    <context:component-scan base-package="com.ibm.bim.spring"/>
+    <context:component-scan base-package="spring.security"/>
     
     <jdbc:embedded-database id="dataSource" type="HSQL">
         <jdbc:script location="classpath:security-schema.sql"/>
