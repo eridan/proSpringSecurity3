@@ -23,11 +23,13 @@
                     logout-url="/logout" />
         <!--Custom Filters-->
         <sec:custom-filter ref="ipFilter" before="FILTER_SECURITY_INTERCEPTOR" />
+        <sec:custom-filter ref="requestHeaderProcessingFilter" before="FORM_LOGIN_FILTER" />
     </sec:http>
     
     <!--<sec:debug />-->
     
     <sec:authentication-manager alias="authenticationManager">
+        <sec:authentication-provider ref="signedRequestAuthenticationProvider" /> 
         <sec:authentication-provider user-service-ref="jdbcUserService">
             <sec:password-encoder ref="passwordEncoder">
                 <sec:salt-source ref="saltSource" />

@@ -19,6 +19,18 @@
         </property>
     </bean>
     
+    <bean id="requestHeaderProcessingFilter" class="com.ibm.bim.spring.security.prospring3.security.RequestHeaderProcessingFilter">
+        <property name="authenticationManager" ref="authenticationManager" />
+    </bean>
+    
+    <!--Authentication Providers-->
+    
+    <bean id="signedRequestAuthenticationProvider" class="com.ibm.bim.spring.security.prospring3.security.SignedUsernamePasswordAuthenticationProvider">
+        <property name="passwordEncoder" ref="passwordEncoder" />
+        <property name="saltSource" ref="saltSource" />
+        <property name="userDetailsService" ref="jdbcUserService" />
+    </bean>
+    
     <!-- Ch 2 Custom AccessDecisionManager -->
     <bean class="org.springframework.security.access.vote.UnanimousBased" id="unanimousBased">
         <property name="decisionVoters">
