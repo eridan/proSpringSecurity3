@@ -15,10 +15,10 @@
 	<li><a href="listPets.do?species=cat">Cats</a></li>
 </ul>
 
-<h2>Categories</h2>
+<h2>Items</h2>
 <ul>
-<c:forEach var="category" items="${categories}">
-	<li><a href="category.do?id=${category.name}">${category.name}</a></li>
+<c:forEach var="item" items="${item}">
+	<li><a href="viewItem.do?id=${item.name}">${item.name}</a></li>
 </c:forEach>
 </ul>
 <jsp:include page="common/footer.jsp"/>
