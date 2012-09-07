@@ -66,8 +66,8 @@
     
     <jdbc:embedded-database id="dataSource" type="HSQL">
         <jdbc:script location="classpath:security-schema.sql"/>
-        <jdbc:script location="classpath:test-data.sql" />
-        <jdbc:script location="classpath:test-users-groups-data.sql" />
+        <jdbc:script location="classpath:remember-me-schema.sql"/> 
+        <jdbc:script location="classpath:test-users-groups-data.sql"/>
     </jdbc:embedded-database>
 
 </beans>

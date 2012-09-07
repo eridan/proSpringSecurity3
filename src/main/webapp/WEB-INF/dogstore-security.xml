@@ -25,6 +25,7 @@
         <sec:custom-filter ref="ipFilter" before="FILTER_SECURITY_INTERCEPTOR" />
         <sec:custom-filter ref="requestHeaderProcessingFilter" before="FORM_LOGIN_FILTER" />
         <sec:access-denied-handler error-page="/accessDenied.do" />
+        <sec:openid-login />
     </sec:http>
     
     <!--<sec:debug />-->

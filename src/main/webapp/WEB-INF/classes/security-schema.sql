@@ -3,9 +3,9 @@
       username varchar_ignorecase(50) not null primary key,
       password varchar_ignorecase(50) not null,
 -- Ch 4 Custom Salt exercise
-      enabled boolean not null
---      enabled boolean not null,
---      salt varchar_ignorecase(25) not null
+--      enabled boolean not null
+      enabled boolean not null,
+      salt varchar_ignorecase(25) not null
       );
 
   create table authorities (
