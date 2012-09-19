@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:sec="http://www.springframework.org/schema/security"
+       xsi:schemaLocation="
+		http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/security 
+		http://www.springframework.org/schema/security/spring-security-3.1.xsd
+	">
+    <!-- Ch 2 Start -->
+    <!--	<http auto-config="true">
+                                          		<intercept-url pattern="/*" access="ROLE_USER"/>
+   	</http>-->
+    <!-- Ch 2 Unanimous Based AccessDecisionManager -->
+    <sec:http auto-config="true" use-expressions="true">
+        <sec:intercept-url pattern="/login.do" access="permitAll"/>
+        <sec:intercept-url pattern="/account/*.do" access="hasRole('ROLE_ADMIN') and fullyAuthenticated" />
+        <sec:intercept-url pattern="/*" access="hasRole('ROLE_USER')"/>
+        <sec:form-login login-page="/login.do"/>
+        <sec:logout invalidate-session="true"
+                    logout-success-url="/"
+                    logout-url="/logout" />
+        <!--Custom Filters-->
+        <sec:custom-filter ref="ipFilter" before="FILTER_SECURITY_INTERCEPTOR" />
+        <sec:custom-filter ref="requestHeaderProcessingFilter" before="FORM_LOGIN_FILTER" />
+        <sec:access-denied-handler error-page="/accessDenied.do" />
+        <sec:openid-login authentication-failure-handler-ref="openIdAuthFailureHandler" />
+    </sec:http>
+    
+    <!-- Ch 9 LDAP -->
+    <!-- Embedded Server, with Apache DS edited example -->
+    <sec:ldap-server ldif="classpath:JBCPPets.ldif" id="ldapLocal" root="dc=jbcppets,dc=com" />
+    
+    <!--<sec:debug />-->
+    
+    <sec:authentication-manager alias="authenticationManager">
+        <sec:authentication-provider ref="signedRequestAuthenticationProvider" /> 
+        <sec:authentication-provider user-service-ref="jdbcUserService">
+            <sec:password-encoder ref="passwordEncoder">
+                <sec:salt-source ref="saltSource" />
+            </sec:password-encoder>
+        </sec:authentication-provider>
+        <sec:ldap-authentication-provider server-ref="ldapLocal"
+                                      user-search-filter="(uid={0})" 
+                                      group-search-base="ou=Groups" />           
+    </sec:authentication-manager>	
+</beans>

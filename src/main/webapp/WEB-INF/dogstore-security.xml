@@ -10,7 +10,7 @@
 	">
     <!-- Ch 2 Start -->
     <!--	<http auto-config="true">
-                                  		<intercept-url pattern="/*" access="ROLE_USER"/>
+                                          		<intercept-url pattern="/*" access="ROLE_USER"/>
    	</http>-->
     <!-- Ch 2 Unanimous Based AccessDecisionManager -->
     <sec:http auto-config="true" use-expressions="true">
@@ -28,6 +28,10 @@
         <sec:openid-login authentication-failure-handler-ref="openIdAuthFailureHandler" />
     </sec:http>
     
+    <!-- Ch 9 LDAP -->
+    <!-- Embedded Server, with Apache DS edited example -->
+    <sec:ldap-server ldif="classpath:JBCPPets.ldif" id="ldapLocal" root="dc=jbcppets,dc=com" />
+    
     <!--<sec:debug />-->
     
     <sec:authentication-manager alias="authenticationManager">
@@ -36,6 +40,9 @@
             <sec:password-encoder ref="passwordEncoder">
                 <sec:salt-source ref="saltSource" />
             </sec:password-encoder>
-        </sec:authentication-provider>           
+        </sec:authentication-provider>
+        <sec:ldap-authentication-provider server-ref="ldapLocal"
+                                      user-search-filter="(uid={0})" 
+                                      group-search-base="ou=Groups" />           
     </sec:authentication-manager>	
 </beans>

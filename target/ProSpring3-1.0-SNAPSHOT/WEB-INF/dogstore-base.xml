@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/jdbc  http://www.springframework.org/schema/jdbc/spring-jdbc-3.1.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+	">
+    
+    <!--Filters-->
+    
+    <bean id="ipFilter" class="spring.security.prospring3.security.IPRoleAuthenticationFilter">
+        <property name="targetRole" value="ROLE_USER" />
+        <property name="allowedIPAddresses">
+            <list>
+                <value>127.0.0.1</value>
+            </list>
+        </property>
+    </bean>
+    
+    <bean id="requestHeaderProcessingFilter" class="spring.security.prospring3.security.RequestHeaderProcessingFilter">
+        <property name="authenticationManager" ref="authenticationManager" />
+    </bean>
+    
+    <!--Authentication Providers-->
+    
+    <bean id="signedRequestAuthenticationProvider" class="spring.security.prospring3.security.SignedUsernamePasswordAuthenticationProvider">
+        <property name="passwordEncoder" ref="passwordEncoder" />
+        <property name="saltSource" ref="saltSource" />
+        <property name="userDetailsService" ref="jdbcUserService" />
+    </bean>
+    
+    <!-- Ch 2 Custom AccessDecisionManager -->
+    <bean class="org.springframework.security.access.vote.UnanimousBased" id="unanimousBased">
+        <property name="decisionVoters">
+            <list>
+                <ref bean="roleVoter"/>
+                <ref bean="authenticatedVoter"/>
+            </list>
+        </property>
+    </bean>
+    
+    <bean id="jdbcUserService" class="spring.security.prospring3.jdbc.CustomJdbcDaoImpl">
+        <property name="dataSource" ref="dataSource" />
+        <property name="enableGroups" value="true" />
+        <property name="enableAuthorities" value="false" />
+    </bean>
+    
+    <bean class="org.springframework.security.access.vote.RoleVoter" id="roleVoter"/>
+    <bean class="org.springframework.security.access.vote.AuthenticatedVoter" id="authenticatedVoter" />
+    
+    <bean id="passwordEncoder" class="org.springframework.security.authentication.encoding.ShaPasswordEncoder" />
+    
+    <bean id="saltSource" class="org.springframework.security.authentication.dao.ReflectionSaltSource">
+        <property name="userPropertyToUse" value="username" />
+    </bean>
+    
+    <bean id="dbPWSecBean" class="spring.security.prospring3.security.DatabasePasswordSecurerBean"
+          init-method="secureDatabase" depends-on="dataSource">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+    
+    <bean id="openIdAuthFailureHandler" class="spring.security.prospring3.security.OpenIDAuthenticationFailureHandler">
+        <property name="defaultFailureUrl" value="/accessDenied.do" />
+    </bean>
+   	
+    <context:annotation-config />
+    <context:component-scan base-package="spring.security"/>
+    
+    <jdbc:embedded-database id="dataSource" type="HSQL">
+        <jdbc:script location="classpath:security-schema.sql"/>
+        <jdbc:script location="classpath:remember-me-schema.sql"/> 
+        <jdbc:script location="classpath:test-users-groups-data.sql"/>
+    </jdbc:embedded-database>
+
+</beans>
