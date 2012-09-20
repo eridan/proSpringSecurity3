@@ -11,6 +11,7 @@
 </p>
 <ul>
 	<li><a href="changePassword.do">Change Password</a></li>
+	<li><a href="viewLdapUserProfile.do">View LDAP User Profile</a></li>
 </ul>
 
 <jsp:include page="../common/footer.jsp"/>
